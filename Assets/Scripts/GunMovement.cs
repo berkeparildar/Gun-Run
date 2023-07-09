@@ -5,18 +5,21 @@ public class GunMovement : MonoBehaviour
     private Vector3 _initialMousePosition;
     private Vector3 _startPosition;
     private bool _isPressed;
-    
-    protected void Start()
-    {
+    private float _speed;
+
+    private void Start() {
+        _speed = 3f;
     }
 
-    protected void Update()
+    void Update()
     {
         Movement();
     }
 
     private void Movement()
-    {
+    {            
+        transform.Translate(_speed * Time.deltaTime * Vector3.forward);
+
         if (Input.GetMouseButtonDown(0))
         {
             _isPressed = true;
@@ -34,18 +37,8 @@ public class GunMovement : MonoBehaviour
             float xDelta = Input.mousePosition.x - _initialMousePosition.x;
             xDelta /= 48;
             Vector3 newPos = _startPosition + new Vector3(xDelta, 0, 0);
-            if (newPos.x > 3)
-            {
-                newPos.x = 3;
-            }
-            else if (newPos.x < -3)
-            {
-                newPos.x = -3;
-            }
-            else
-            {
-                transform.position = newPos;
-            }
+            newPos.x = Mathf.Clamp(newPos.x, -3, 3);
+            transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
         }
     }
 }
