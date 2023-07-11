@@ -6,7 +6,7 @@ public class GunShoot : MonoBehaviour
     [SerializeField] private float _range;
     private readonly float _initRange = 10;
     [SerializeField] private float _fireRate;
-    private readonly float _initFireRate = 10;
+    private readonly float _initFireRate = 1;
     private Vector3 _bulletInitPoint;
     [SerializeField] private GameObject bulletPrefab;
     
@@ -24,8 +24,7 @@ public class GunShoot : MonoBehaviour
         {
             _bulletInitPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 2);
             Instantiate(bulletPrefab, _bulletInitPoint, Quaternion.identity);
-            float fireRate = 5 / _fireRate;
-            yield return new WaitForSeconds(fireRate);
+            yield return new WaitForSeconds(_fireRate);
         }
     }
     
@@ -41,6 +40,6 @@ public class GunShoot : MonoBehaviour
 
     public void IncreaseFireRate(float points)
     {
-        _fireRate -= points;
+        _fireRate -= points / 100;
     }
 }

@@ -687,7 +687,7 @@ GameObject:
   - component: {fileID: 1836683070817138168}
   - component: {fileID: 2211390146243295376}
   - component: {fileID: 6679637282312397084}
-  - component: {fileID: 5733841211720654249}
+  - component: {fileID: 7029606305514041638}
   m_Layer: 0
   m_Name: GreenWall
   m_TagString: Wall
@@ -714,7 +714,7 @@ Transform:
   - {fileID: 8731816229248771797}
   - {fileID: 1021708938560327974}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2211390146243295376
 MonoBehaviour:
@@ -753,7 +753,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.507266, y: 3.986419, z: 0.1824736}
   m_Center: {x: 0.0054397583, y: 3.9941902, z: -0.25022656}
---- !u!54 &5733841211720654249
+--- !u!54 &7029606305514041638
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

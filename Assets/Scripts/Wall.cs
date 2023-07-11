@@ -13,14 +13,10 @@ public enum WallPerk
 
 public class Wall : MonoBehaviour, IPlatformObject
 {
-    [SerializeField]
-    private Material greenOpaqueColor;
-    [SerializeField]
-    private Material greenTranslucentColor;
-    [SerializeField]
-    private Material redOpaqueColor;
-    [SerializeField]
-    private Material redTranslucentColor;
+    [SerializeField] private Material greenOpaqueColor;
+    [SerializeField] private Material greenTranslucentColor;
+    [SerializeField] private Material redOpaqueColor;
+    [SerializeField] private Material redTranslucentColor;
 
     private TextMeshPro _perkText;
     private TextMeshPro _hitPointText;
@@ -57,10 +53,7 @@ public class Wall : MonoBehaviour, IPlatformObject
     {
         transform
             .DOPunchScale(Vector3.one / 25, 0.3f)
-            .OnComplete(() =>
-            {
-                DOTween.KillAll();
-            });
+            .OnComplete(() => { DOTween.KillAll(); });
         Points += SumPoint;
     }
 
@@ -85,7 +78,7 @@ public class Wall : MonoBehaviour, IPlatformObject
         Destroy(this.gameObject);
     }
 
-     private void SetInitPoints()
+    private void SetInitPoints()
     {
         //TODO: the hitpoint should be decided by the current state of the player
         Points = Random.Range(5, 10); // * _perklevel maybe?
@@ -109,7 +102,7 @@ public class Wall : MonoBehaviour, IPlatformObject
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Gun"))
         {

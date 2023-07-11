@@ -7,7 +7,8 @@ public class GunMovement : MonoBehaviour
     private bool _isPressed;
     private float _speed;
 
-    private void Start() {
+    private void Start() 
+    {
         _speed = 3f;
     }
 
