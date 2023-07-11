@@ -17,10 +17,12 @@ public struct Row
 
 public class GameManager : MonoBehaviour
 {
+    public static int AmmoCollected;
     public static int Level;
     public GameObject ammoPrefab;
     public GameObject wallPrefab;
     public GameObject wallPoints;
+    public GameObject ammoPoints;
     private Row[] _takenSpots =
     {
         new(true, true, true),
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         Level = 8;
         SpawnWalls();
+        SpawnAmmo();
     }
 
     // Update is called once per frame
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SpawnWalls()
+    private void SpawnWalls()
     {
         for (int i = 0; i < Level; i++)
         {
@@ -99,5 +102,18 @@ public class GameManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void SpawnAmmo()
+    {
+        int ammoCount = Level / 2;
+        for (int i = 0; i < ammoCount; i++)
+        {
+            var xPos = Random.Range(-2.5f, 2.8f);
+            var randomChild = ammoPoints.transform.GetChild(Random.Range(0, 4));
+            var position = randomChild.position;
+            var zPos = Random.Range(position.z - 10, position.z + 11);
+            Instantiate(ammoPrefab, new Vector3(xPos, 3, zPos), Quaternion.identity);
+        }
     }
 }

@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Obstacle"))
         {
             other.GetComponent<IPlatformObject>().TakeHit();
             Destroy(this.gameObject);
