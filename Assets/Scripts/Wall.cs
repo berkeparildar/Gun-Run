@@ -87,7 +87,7 @@ public class Wall : MonoBehaviour, IPlatformObject
 
     private void SetPerk()
     {
-        int random = Random.Range(0, 3);
+        var random = Random.Range(0, 3);
         switch (random)
         {
             case 1:
@@ -98,6 +98,8 @@ public class Wall : MonoBehaviour, IPlatformObject
                 break;
             case 3:
                 _perk = WallPerk.GunEXP;
+                break;
+            default:
                 break;
         }
     }

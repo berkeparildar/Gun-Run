@@ -3,18 +3,17 @@ using UnityEngine;
 
 public class GunShoot : MonoBehaviour
 {
-    [SerializeField] private float _range;
+    [SerializeField] private float range;
     private readonly float _initRange = 10;
-    [SerializeField] private float _fireRate;
+    [SerializeField] private float fireRate;
     private readonly float _initFireRate = 1;
     private Vector3 _bulletInitPoint;
     [SerializeField] private GameObject bulletPrefab;
-    
 
-    void Start()
+    private void Start()
     {
-        _fireRate = _initFireRate;
-        _range = _initRange;
+        fireRate = _initFireRate;
+        range = _initRange;
         StartCoroutine(ShootCoroutine());
     }
 
@@ -22,24 +21,26 @@ public class GunShoot : MonoBehaviour
     {
         while (true)
         {
-            _bulletInitPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 2);
+            var gunPosition = transform.position;
+            _bulletInitPoint = new Vector3(gunPosition.x
+                , gunPosition.y, gunPosition.z + 2);
             Instantiate(bulletPrefab, _bulletInitPoint, Quaternion.identity);
-            yield return new WaitForSeconds(_fireRate);
+            yield return new WaitForSeconds(fireRate);
         }
     }
-    
+
     public void IncreaseRange(float points)
     {
-        _range += points;
+        range += points;
     }
 
     public float GetRange()
     {
-        return _range;
+        return range;
     }
 
     public void IncreaseFireRate(float points)
     {
-        _fireRate -= points / 100;
+        fireRate -= points / 100;
     }
 }

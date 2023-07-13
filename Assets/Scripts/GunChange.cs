@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GunChange : MonoBehaviour
@@ -13,7 +11,6 @@ public class GunChange : MonoBehaviour
 
     void Update()
     {
-        
     }
 
     public void IncreaseGunEXP(int points)

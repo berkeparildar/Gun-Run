@@ -1,119 +1,120 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Row
-{
-    public bool IsEmpty;
-    public bool IsRightEmpty;
-    public bool IsLeftEmpty;
-
-    public Row(bool i, bool r, bool l)
-    {
-        IsEmpty = i;
-        IsRightEmpty = r;
-        IsLeftEmpty = l;
-    }
-}
-
 public class GameManager : MonoBehaviour
 {
     public static int AmmoCollected;
     public static int Level;
+    public static int ElementCount;
+    public static int AmmoCount;
+    public static int WallCount;
+    public static int ElementIncrease;
     public GameObject ammoPrefab;
     public GameObject wallPrefab;
-    public GameObject wallPoints;
-    public GameObject ammoPoints;
-    private Row[] _takenSpots =
-    {
-        new(true, true, true),
-        new(true, true, true),
-        new(true, true, true),
-        new(true, true, true)
-    };
-    
+    public GameObject spawnPoints;
+    public GameObject platformTile;
+    public Transform platformContainer;
+    public static int currentPlatformEnd;
+    public Transform objectContainer;
+    public GameObject emptyGameObject;
+    public GameObject gun;
+    public static int currentSpawnPointEnd;
+
+    private List<Vector3> _availableSpots = new();
+
     void Start()
     {
-        Level = 8;
-        SpawnWalls();
-        SpawnAmmo();
+        Level = 1;
+        AmmoCount = 3;
+        WallCount = 1;
+        currentPlatformEnd = 58;
+        currentSpawnPointEnd = 64;
+        for (var i = 0; i < spawnPoints.transform.childCount; i++)
+        {
+            _availableSpots.Add(spawnPoints.transform.GetChild(i).transform.position);
+        }
+        SpawnElements();
     }
 
-    // Update is called once per frame
+    private void SpawnElements()
+    {
+        for (var i = 0; i < AmmoCount; i++)
+        {
+           var xPos = Random.Range(-2.5f, 2.5f);
+           var yPos = 3;
+           var randomChild = Random.Range(0, _availableSpots.Count);
+           var zPos = _availableSpots[randomChild].z;
+           _availableSpots.Remove(_availableSpots[randomChild]);
+           var ammoPosition = new Vector3(xPos, yPos, zPos);
+           var ammo = Instantiate(ammoPrefab, ammoPosition, Quaternion.identity);
+           ammo.transform.SetParent(objectContainer);
+        }
+        for (var i = 0; i < WallCount; i++)
+        {
+            var spawnTwo = Random.Range(0, 2);
+            if (spawnTwo == 0)
+            {   
+                float[] xPoses = {-2.25f, 0, 2.25f}; 
+                var xPos = xPoses[Random.Range(0, 3)];
+                var yPos = -0.8f;
+                var randomChild = Random.Range(0, _availableSpots.Count);
+                var zPos = _availableSpots[randomChild].z;
+                _availableSpots.RemoveAt(randomChild);
+                var wallPosition = new Vector3(xPos, yPos, zPos);
+                var wall = Instantiate(wallPrefab, wallPosition, Quaternion.identity);
+                wall.transform.SetParent(objectContainer);
+            }
+            else
+            {
+                var yPos = -0.8f;
+                var randomChild = Random.Range(0, _availableSpots.Count);
+                var zPos = _availableSpots[randomChild].z;
+                var wallPositionOne = new Vector3(-2.25f, yPos, zPos);
+                var wallPositionTwo = new Vector3(2.25f, yPos, zPos);
+                _availableSpots.RemoveAt(randomChild);
+                var wallOne = Instantiate(wallPrefab, wallPositionOne, Quaternion.identity);
+                var wallTwo = Instantiate(wallPrefab, wallPositionTwo, Quaternion.identity);
+                wallOne.transform.SetParent(objectContainer);
+                wallTwo.transform.SetParent(objectContainer);
+                i++;
+            }
+        }
+    }
+
     void Update()
     {
+        Debug.Log(AmmoCollected);
     }
 
-    public void SpawnObstacles()
+    public void NextLevel()
     {
-
-    }
-
-    private void SpawnWalls()
-    {
-        for (int i = 0; i < Level; i++)
+        for (var i = 0; i < objectContainer.transform.childCount; i++)
         {
-            int randomChild = Random.Range(0, 4);
-            int randomX = Random.Range(0, 2);
-            while (true)
-            {
-                if (CheckOccupiedSpots(randomChild, randomX, i))
-                {
-                    break;
-                }
-                randomChild = Random.Range(0, 4);
-                randomX = Random.Range(0, 2);
-            }
-            var xPos = randomX == 1 ? 2.25f : -2.25f;
-            var wallPos = new Vector3(xPos, -0.8f, wallPoints.transform.GetChild(randomChild).position.z);
-            var wall = Instantiate(wallPrefab, wallPos, Quaternion.identity);
+            Destroy(objectContainer.GetChild(i).gameObject);   
         }
-    }
-    
-    private bool CheckOccupiedSpots(int rowIndex, int xPos, int currentIteration)
-    {
-        if (currentIteration < 4)
+        _availableSpots.Clear();
+        WallCount += 1; 
+        var ammoChance = Random.Range(0, 2);
+        if (ammoChance == 0)
         {
-            if (_takenSpots[rowIndex].IsEmpty)
-            {
-                _takenSpots[rowIndex].IsEmpty = false;
-                if (xPos == 0)
-                {
-                    _takenSpots[rowIndex].IsRightEmpty = false;
-                }
-                else
-                {
-                    _takenSpots[rowIndex].IsLeftEmpty = false;
-                }
-                return true;
-            }
+            AmmoCount++;
         }
-        else
+        currentPlatformEnd += 16;
+        currentSpawnPointEnd += 16;
+        var newPosition = Instantiate(emptyGameObject, new Vector3(0, 0, currentSpawnPointEnd), Quaternion.identity);
+        newPosition.transform.SetParent(spawnPoints.transform);
+        var tileOne = Instantiate(platformTile, new Vector3(0, 0, currentPlatformEnd), Quaternion.identity);
+        tileOne.transform.SetParent(platformContainer);
+        currentPlatformEnd += 16;
+        currentSpawnPointEnd += 16;
+        var newPositionTwo = Instantiate(emptyGameObject, new Vector3(0, 0, currentSpawnPointEnd), Quaternion.identity);
+        newPositionTwo.transform.SetParent(spawnPoints.transform);
+        var tileTwo = Instantiate(platformTile, new Vector3(0, 0, currentPlatformEnd), Quaternion.identity);
+        tileTwo.transform.SetParent(platformContainer);
+        for (var i = 0; i < spawnPoints.transform.childCount; i++)
         {
-            if ((xPos == 0 && _takenSpots[rowIndex].IsRightEmpty))
-            {
-                _takenSpots[rowIndex].IsRightEmpty = false;
-                return true;
-            }
-
-            if ((xPos == 1 && _takenSpots[rowIndex].IsLeftEmpty))
-            {
-                _takenSpots[rowIndex].IsLeftEmpty = false;
-                return true;
-            }
+            _availableSpots.Add(spawnPoints.transform.GetChild(i).transform.position);
         }
-        return false;
-    }
-
-    private void SpawnAmmo()
-    {
-        int ammoCount = Level / 2;
-        for (int i = 0; i < ammoCount; i++)
-        {
-            var xPos = Random.Range(-2.5f, 2.8f);
-            var randomChild = ammoPoints.transform.GetChild(Random.Range(0, 4));
-            var position = randomChild.position;
-            var zPos = Random.Range(position.z - 10, position.z + 11);
-            Instantiate(ammoPrefab, new Vector3(xPos, 3, zPos), Quaternion.identity);
-        }
+        SpawnElements();
     }
 }
