@@ -6,6 +6,7 @@ public class GunMovement : MonoBehaviour
     private Vector3 _startPosition;
     private bool _isPressed;
     private float _speed;
+    public bool isDead;
 
     private void Start()
     {
@@ -14,7 +15,10 @@ public class GunMovement : MonoBehaviour
 
     void Update()
     {
-        Movement();
+        if (!isDead)
+        {
+            Movement();
+        }
     }
 
     private void Movement()
@@ -41,5 +45,10 @@ public class GunMovement : MonoBehaviour
             newPos.x = Mathf.Clamp(newPos.x, -3, 3);
             transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
         }
+    }
+
+    public void Die()
+    {
+        isDead = true;
     }
 }

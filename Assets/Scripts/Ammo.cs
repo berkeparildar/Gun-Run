@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 public class Ammo : MonoBehaviour, IPlatformObject
 {
     private Transform _bulletHoles;
-    public int Points { get; set; } // max is 6
-    public int SumPoint { get; set; }
+    public float Points { get; set; } // max is 6
+    public float SumPoint { get; set; }
     public GunShoot GunShoot { get; set; }
     private int _currentBullet;
     private int _amountToRotate;
@@ -21,9 +21,9 @@ public class Ammo : MonoBehaviour, IPlatformObject
         _capsuleCollider = GetComponent<CapsuleCollider>();
         SumPoint = 1;
         Points = Random.Range(0, 4);
-        _amountToRotate = 6 - Points;
+        _amountToRotate = 6 - (int) Points;
         InitializeBullets();
-        Debug.Log(_player.position);
+        Debug.Log(transform.position);
     }
 
     private void Update()
@@ -63,7 +63,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
             new Vector3(-8, transform.position.y, transform.position.z), 3).OnComplete(() => {
                 DOTween.KillAll();
             });
-        GameManager.AmmoCollected += Points;
+        GetAmmoWalls();
         _isPassed = true;
     }
 
@@ -81,6 +81,27 @@ public class Ammo : MonoBehaviour, IPlatformObject
         if (_player.position.z > transform.position.z && !_isPassed)
         {
             Die();
+        }
+    }
+
+    private void GetAmmoWalls()
+    {
+        var ammoWalls = GameObject.FindGameObjectsWithTag("AmmoWall");
+        if (ammoWalls.Length == 1)
+        {
+            if (ammoWalls[0].transform.position.z > transform.position.z)
+            {
+                var ammoWall = ammoWalls[0].GetComponent<AmmoWall>();
+                ammoWall.SpawnBullets((int)Points);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < ammoWalls.Length; i++)
+            {
+                var ammoWall = ammoWalls[i].GetComponent<AmmoWall>();
+                ammoWall.SpawnBullets((int)Points);
+            }
         }
     }
 }

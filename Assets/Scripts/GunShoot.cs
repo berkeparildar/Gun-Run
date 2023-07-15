@@ -9,9 +9,11 @@ public class GunShoot : MonoBehaviour
     private readonly float _initFireRate = 1;
     private Vector3 _bulletInitPoint;
     [SerializeField] private GameObject bulletPrefab;
+    private GunMovement _gunMovement;
 
     private void Start()
     {
+        _gunMovement = GetComponent<GunMovement>();
         fireRate = _initFireRate;
         range = _initRange;
         StartCoroutine(ShootCoroutine());
@@ -26,6 +28,10 @@ public class GunShoot : MonoBehaviour
                 , gunPosition.y, gunPosition.z + 2);
             Instantiate(bulletPrefab, _bulletInitPoint, Quaternion.identity);
             yield return new WaitForSeconds(fireRate);
+            if (_gunMovement.isDead)
+            {
+                break;
+            }
         }
     }
 

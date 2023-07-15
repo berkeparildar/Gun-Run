@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IPlatformObject
 {
-    public int Points{get; set;}
-    public int SumPoint{get; set;}
+    public float Points{get; set;}
+    public float SumPoint{get; set;}
     public GunShoot GunShoot {get; set;}
     public void Perk();
     public void TakeHit();

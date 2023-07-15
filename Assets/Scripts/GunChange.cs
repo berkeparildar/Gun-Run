@@ -3,7 +3,7 @@ using UnityEngine;
 public class GunChange : MonoBehaviour
 {
     //reference to models here..
-    private int _gunEXP;
+    private float _gunEXP;
     void Start()
     {
         _gunEXP = 0;
@@ -13,7 +13,7 @@ public class GunChange : MonoBehaviour
     {
     }
 
-    public void IncreaseGunEXP(int points)
+    public void IncreaseGunEXP(float points)
     {
         _gunEXP += points;
     }

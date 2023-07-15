@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public enum WallPerk
 {
@@ -20,6 +23,7 @@ public class Wall : MonoBehaviour, IPlatformObject
 
     private TextMeshPro _perkText;
     private TextMeshPro _hitPointText;
+    private TextMeshPro _sumPointText;
 
     private WallPerk _perk;
     private GunChange _gunChange;
@@ -27,8 +31,8 @@ public class Wall : MonoBehaviour, IPlatformObject
     //TODO: the level should be decided by the current state of the player
     private int _perkLevel;
 
-    public int Points { get; set; }
-    public int SumPoint { get; set; }
+    public float Points { get; set; }
+    public float SumPoint { get; set; }
     public GunShoot GunShoot { get; set; }
 
     void Start()
@@ -40,13 +44,15 @@ public class Wall : MonoBehaviour, IPlatformObject
         SetPerk();
         _perkText = transform.GetChild(4).GetComponent<TextMeshPro>();
         _hitPointText = transform.GetChild(5).GetComponent<TextMeshPro>();
+        _sumPointText = transform.GetChild(6).GetComponent<TextMeshPro>();
         _perkText.text = _perk.ToString();
         _hitPointText.text = "+" + Points;
+        _sumPointText.text = Math.Round(SumPoint, 1).ToString(CultureInfo.InvariantCulture);
     }
 
     void Update()
     {
-        _hitPointText.text = "+" + Points;
+        _hitPointText.text = "+" + Math.Round(Points, 1).ToString(CultureInfo.InvariantCulture);;
     }
 
     public void TakeHit()
@@ -81,8 +87,8 @@ public class Wall : MonoBehaviour, IPlatformObject
     private void SetInitPoints()
     {
         //TODO: the hitpoint should be decided by the current state of the player
-        Points = Random.Range(5, 10); // * _perklevel maybe?
-        SumPoint = 1;
+        Points = (int) Random.Range(5, 10); // * _perklevel maybe?
+        SumPoint = Random.Range(0, 1.7f);
     }
 
     private void SetPerk()

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Gun
   - Obstacle
+  - AmmoWall
+  - Bullet
   layers:
   - Default
   - TransparentFX
