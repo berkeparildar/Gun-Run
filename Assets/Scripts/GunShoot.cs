@@ -23,14 +23,17 @@ public class GunShoot : MonoBehaviour
     {
         while (true)
         {
-            var gunPosition = transform.position;
-            _bulletInitPoint = new Vector3(gunPosition.x
-                , gunPosition.y, gunPosition.z + 2);
-            Instantiate(bulletPrefab, _bulletInitPoint, Quaternion.identity);
-            yield return new WaitForSeconds(fireRate);
-            if (_gunMovement.isDead)
+            if (GameManager.StartGame)
             {
-                break;
+                var gunPosition = transform.position;
+                _bulletInitPoint = new Vector3(gunPosition.x
+                    , gunPosition.y, gunPosition.z + 2);
+                Instantiate(bulletPrefab, _bulletInitPoint, Quaternion.identity);
+                yield return new WaitForSeconds(fireRate);
+            }
+            else
+            {
+                yield return null;
             }
         }
     }

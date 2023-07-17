@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static int Level;
     public static int Money;
+    public static bool StartGame;
 
     public TextMeshProUGUI moneyText;
     public List<Vector3> _availableSpots = new();
@@ -130,20 +131,23 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        var position = endZone.transform.position;
         gun.transform.position = new Vector3(0, 3, 2);
+        gun.GetComponent<GunMovement>().isDead = false;
+
         for (var i = 0; i < objectContainer.transform.childCount; i++)
         {
             Destroy(objectContainer.GetChild(i).gameObject);
         }
-
         _availableSpots.Clear();
+        
         WallCount += 1;
         var ammoChance = Random.Range(0, 2);
         if (ammoChance == 0)
         {
             AmmoCount++;
         }
-
+        
         _platformSpawnPos += 10;
         var newPosition = Instantiate(emptyGameObject
             , new Vector3(0, 0, _platformSpawnPos), Quaternion.identity);
@@ -158,9 +162,10 @@ public class GameManager : MonoBehaviour
         var tileTwo = Instantiate(platformTile
             , new Vector3(0, 0, _platformSpawnPos), Quaternion.identity);
         tileTwo.transform.SetParent(platformContainer);
-        var position = endZone.transform.position;
-        endZone.transform.position = (new Vector3(position.x, position.y,
-            position.z + 20));
+
+        var endZoneInit = Instantiate(endZone, new Vector3(position.x, position.y, position.z + 20), Quaternion.identity);
+        endZoneInit.transform.SetParent(objectContainer);
+
         for (var i = 0; i < spawnPoints.transform.childCount; i++)
         {
             _availableSpots.Add(spawnPoints.transform.GetChild(i).transform

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public enum WallPerk
 {
     FireRate,
-    Range,
+    FireRange,
     GunEXP,
 }
 
@@ -40,8 +40,8 @@ public class Wall : MonoBehaviour, IPlatformObject
         var gun = GameObject.Find("Gun");
         GunShoot = gun.GetComponent<GunShoot>();
         _gunChange = gun.GetComponent<GunChange>();
-        SetInitPoints();
         SetPerk();
+        SetInitPoints();
         _perkText = transform.GetChild(4).GetComponent<TextMeshPro>();
         _hitPointText = transform.GetChild(5).GetComponent<TextMeshPro>();
         _sumPointText = transform.GetChild(6).GetComponent<TextMeshPro>();
@@ -70,7 +70,7 @@ public class Wall : MonoBehaviour, IPlatformObject
             case WallPerk.FireRate:
                 GunShoot.IncreaseFireRate(Points);
                 break;
-            case WallPerk.Range:
+            case WallPerk.FireRange:
                 GunShoot.IncreaseRange(Points);
                 break;
             case WallPerk.GunEXP:
@@ -87,25 +87,31 @@ public class Wall : MonoBehaviour, IPlatformObject
     private void SetInitPoints()
     {
         //TODO: the hitpoint should be decided by the current state of the player
-        Points = (int) Random.Range(5, 10); // * _perklevel maybe?
-        SumPoint = Random.Range(0, 1.7f);
+        if (_perk == WallPerk.GunEXP)
+        {
+            Points = Random.Range(0.1f, 1);
+            SumPoint = Random.Range(0.2f, 0.5f);
+        }
+        else
+        {
+            Points = (int) Random.Range(5, 10); // * _perklevel maybe?
+            SumPoint = Random.Range(0, 1.7f);    
+        }
     }
 
     private void SetPerk()
     {
-        var random = Random.Range(0, 3);
+        var random = Random.Range(1, 4);
         switch (random)
         {
             case 1:
                 _perk = WallPerk.FireRate;
                 break;
             case 2:
-                _perk = WallPerk.Range;
+                _perk = WallPerk.FireRange;
                 break;
             case 3:
                 _perk = WallPerk.GunEXP;
-                break;
-            default:
                 break;
         }
     }

@@ -11,6 +11,7 @@ public class Barrel : MonoBehaviour
 
     private void Start()
     {
+        gameOverScreen = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
         _healthText = transform.GetChild(4).GetComponent<TextMeshPro>();
         _moneyAmount = 15;
         _healthText.text = health.ToString();
@@ -27,6 +28,7 @@ public class Barrel : MonoBehaviour
         {
             other.GetComponent<GunMovement>().isDead = true;
             gameOverScreen.SetActive(true);
+            GameManager.StartGame = false;
             var bullets = GameObject.FindGameObjectsWithTag("Bullet");
             for (int i = 0; i < bullets.Length; i++)
             {

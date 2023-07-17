@@ -6,6 +6,7 @@ public class GunMovement : MonoBehaviour
     private Vector3 _startPosition;
     private bool _isPressed;
     private float _speed;
+    public GameObject startUI;
     public bool isDead;
 
     private void Start()
@@ -23,10 +24,15 @@ public class GunMovement : MonoBehaviour
 
     private void Movement()
     {
-        transform.Translate(_speed * Time.deltaTime * Vector3.forward);
+        if (GameManager.StartGame)
+        {
+            transform.Translate(_speed * Time.deltaTime * Vector3.forward);
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
+            GameManager.StartGame = true;
+            startUI.SetActive(false);
             _isPressed = true;
             _initialMousePosition = Input.mousePosition;
             _startPosition = transform.position;
