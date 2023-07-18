@@ -74,7 +74,7 @@ public class Wall : MonoBehaviour, IPlatformObject
                 GunShoot.IncreaseRange(Points);
                 break;
             case WallPerk.GunEXP:
-                _gunChange.IncreaseGunEXP(Points);
+                GunChange.IncreaseGunExp(Points);
                 break;
         }
     }

@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        var position = endZone.transform.position;
+        var position = GameObject.FindWithTag("EndZone").transform.position;
         gun.transform.position = new Vector3(0, 3, 2);
         gun.GetComponent<GunMovement>().isDead = false;
 
