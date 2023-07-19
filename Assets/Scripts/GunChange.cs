@@ -63,4 +63,21 @@ public class GunChange : MonoBehaviour
         _gunExp = 0;
         UpdateUI();
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("AmmoWallOne"))
+        {
+            _gunExp += 3;
+        }
+        else if (other.CompareTag("AmmoWallTwo"))
+        {
+            _gunExp += 7;
+        }
+        else if (other.CompareTag("AmmoWallThree"))
+        {
+            _gunExp += 12;
+        }
+    }
+
 }

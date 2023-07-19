@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GunMovement : MonoBehaviour
@@ -52,7 +53,7 @@ public class GunMovement : MonoBehaviour
             transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
         }
     }
-
+    
     public void Die()
     {
         isDead = true;
