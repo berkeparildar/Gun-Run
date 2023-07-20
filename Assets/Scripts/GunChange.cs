@@ -10,7 +10,7 @@ public class GunChange : MonoBehaviour
     private int _firstYearCap = 1800;
     private int _secondYearCap = 1810;
     private int _yearDifference;
-    private int _currentIndex = 0;
+    public static int CurrentIndex = 0;
     public GameObject[] guns;
     public Sprite[] gunImages;
 
@@ -42,8 +42,8 @@ public class GunChange : MonoBehaviour
 
     public void UpdateUI()
     {
-        currentImage.sprite = gunImages[_currentIndex];
-        nextImage.sprite = gunImages[_currentIndex + 1];
+        currentImage.sprite = gunImages[CurrentIndex];
+        nextImage.sprite = gunImages[CurrentIndex + 1];
         currentText.text = _firstYearCap.ToString();
         nextText.text = _secondYearCap.ToString();
     }
@@ -53,11 +53,11 @@ public class GunChange : MonoBehaviour
         _firstYearCap = _secondYearCap;
         _secondYearCap += _yearDifference * 2;
         _yearDifference = _secondYearCap - _firstYearCap;
-        guns[_currentIndex].SetActive(false);
-        _currentIndex++;
-        if (_currentIndex < 5)
+        guns[CurrentIndex].SetActive(false);
+        CurrentIndex++;
+        if (CurrentIndex < 5)
         {
-            guns[_currentIndex].SetActive(true);
+            guns[CurrentIndex].SetActive(true);
         }
 
         _gunExp = 0;
