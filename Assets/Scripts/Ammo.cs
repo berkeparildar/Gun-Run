@@ -60,9 +60,10 @@ public class Ammo : MonoBehaviour, IPlatformObject
     {
         _capsuleCollider.enabled = false;
         transform.DOMove(
-            new Vector3(-8, transform.position.y, transform.position.z), 3).OnComplete(() => {
-                DOTween.KillAll();
-            });
+            new Vector3(-8, transform.position.y, transform.position.z), 3).OnComplete(() =>
+        {
+            DOTween.instance.DOKill();
+        });
         GetAmmoWalls();
         _isPassed = true;
     }

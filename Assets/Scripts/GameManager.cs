@@ -133,6 +133,8 @@ public class GameManager : MonoBehaviour
     {
         var position = GameObject.FindWithTag("EndZone").transform.position;
         gun.transform.position = new Vector3(0, 3, 2);
+        gun.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, 0);
+        gun.transform.GetChild(1).position = new Vector3(0, 3, 2);
         gun.GetComponent<GunMovement>().isDead = false;
 
         for (var i = 0; i < objectContainer.transform.childCount; i++)

@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 1353676705681138160}
   - component: {fileID: 259025851284166817}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: transparentPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,7 +690,7 @@ GameObject:
   - component: {fileID: 1789162200019742579}
   - component: {fileID: 6017393593643750853}
   m_Layer: 0
-  m_Name: borderTop (1)
+  m_Name: sumPointBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,10 +969,10 @@ Transform:
   - {fileID: 4175751819967871274}
   - {fileID: 5142940542168269403}
   - {fileID: 2725631482478163696}
+  - {fileID: 7012776631199620081}
   - {fileID: 8731816229248771797}
   - {fileID: 1021708938560327974}
   - {fileID: 3654483887155465410}
-  - {fileID: 7012776631199620081}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -988,10 +988,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a836d37eec4306147aa3b3649af1905a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  greenOpaqueColor: {fileID: 0}
-  greenTranslucentColor: {fileID: 0}
-  redOpaqueColor: {fileID: 0}
-  redTranslucentColor: {fileID: 0}
+  greenOpaqueColor: {fileID: 2100000, guid: 3ea0bcd86009cac4586e9c7d2801902c, type: 2}
+  greenTranslucentColor: {fileID: 2100000, guid: 28ecaeb6fc6af3f42adb9799605b784f,
+    type: 2}
+  redOpaqueColor: {fileID: 2100000, guid: ef4f9ff210335ed458fb2b1471388bbe, type: 2}
+  redTranslucentColor: {fileID: 2100000, guid: 813b0f51b3a99db4787dcdfb3648af81, type: 2}
 --- !u!65 &6679637282312397084
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1011,8 +1012,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.507266, y: 3.986419, z: 0.1824736}
-  m_Center: {x: 0.0054397583, y: 3.9941902, z: -0.25022656}
+  m_Size: {x: 4.0233827, y: 2.5038016, z: 0.1824736}
+  m_Center: {x: 0.003447771, y: 3.2528822, z: -0.25022656}
 --- !u!54 &7029606305514041638
 Rigidbody:
   m_ObjectHideFlags: 0
