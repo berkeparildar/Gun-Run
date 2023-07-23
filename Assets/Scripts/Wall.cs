@@ -148,16 +148,16 @@ public class Wall : MonoBehaviour, IPlatformObject
             if (_negativeHpChance == 5)
             {
                 //_hpOperatorSign = "-";
-                Points = (int)Random.Range(-10, 5);
+                Points = (int)Random.Range(-5, -1);
                 if (_negativeSpChance == 5)
                 {
                     //_spOperatorSign = "-";
-                    SumPoint = Random.Range(-1.7f, 0);
+                    SumPoint = Random.Range(-1.7f, -0.3f);
                 }
                 else
                 {
                     _spOperatorSign = "+";
-                    SumPoint = Random.Range(0, 1.7f);
+                    SumPoint = Random.Range(0.3f, 1.7f);
                 }
             }
             else
@@ -167,12 +167,12 @@ public class Wall : MonoBehaviour, IPlatformObject
                 if (_negativeSpChance == 5)
                 {
                     //_spOperatorSign = "-";
-                    SumPoint = Random.Range(-1.7f, 0);
+                    SumPoint = Random.Range(-1.7f, -0.3f);
                 }
                 else
                 {
                     _spOperatorSign = "+";
-                    SumPoint = Random.Range(0, 1.7f);
+                    SumPoint = Random.Range(0.3f, 1.7f);
                 }
             }
         }

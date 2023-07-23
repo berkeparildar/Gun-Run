@@ -1,21 +1,26 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Barrel : MonoBehaviour
 {
     
-    private int _moneyAmount;
+    public int moneyAmount;
     public int health;
     private TextMeshPro _healthText;
     public GameObject gameOverScreen;
+    private GameObject _barrel;
+    private BoxCollider _boxCollider;
 
     private void Start()
     {
         gameOverScreen = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
-        _healthText = transform.GetChild(4).GetComponent<TextMeshPro>();
-        _moneyAmount = 15;
+        _healthText = transform.GetChild(1).GetComponent<TextMeshPro>();
+        moneyAmount = Random.Range(40, 61);
         _healthText.text = health.ToString();
+        _barrel = transform.GetChild(0).gameObject;
+        _boxCollider = GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -52,8 +57,10 @@ public class Barrel : MonoBehaviour
             Destroy(other.gameObject);
             if (health <= 0)
             {
-                GameManager.Money += _moneyAmount;
-                Destroy(this.gameObject);
+                GameManager.Money += moneyAmount;
+                Destroy(_barrel);
+                _healthText.enabled = false;
+                _boxCollider.enabled = false;
             }
         }
     }

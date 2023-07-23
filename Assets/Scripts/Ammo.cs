@@ -93,7 +93,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
             if (ammoWalls[0].transform.position.z > transform.position.z)
             {
                 var ammoWall = ammoWalls[0].GetComponent<AmmoWall>();
-                ammoWall.SpawnBullets((int)Points);
+                ammoWall.SpawnBullets((int)Points / 2);
             }
         }
         else
@@ -101,7 +101,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
             for (int i = 0; i < ammoWalls.Length; i++)
             {
                 var ammoWall = ammoWalls[i].GetComponent<AmmoWall>();
-                ammoWall.SpawnBullets((int)Points);
+                ammoWall.SpawnBullets((int)Points / 2);
             }
         }
     }

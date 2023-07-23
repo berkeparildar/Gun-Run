@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public static int Money;
     public static bool StartGame;
 
+    public static int IncomeLevel;
+    public static int RangeLevel;
+
     public TextMeshProUGUI moneyText;
     public List<Vector3> _availableSpots = new();
 
@@ -39,6 +42,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Level = 1;
+        IncomeLevel = 0;
+        RangeLevel = 0;
         AmmoCount = 3;
         WallCount = 1;
         _platformSpawnPos = 55;
@@ -47,7 +52,6 @@ public class GameManager : MonoBehaviour
             _availableSpots.Add(spawnPoints.transform.GetChild(i).transform
                 .position);
         }
-
         SpawnElements();
     }
 
@@ -136,7 +140,7 @@ public class GameManager : MonoBehaviour
         gun.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, 0);
         gun.transform.GetChild(1).position = new Vector3(0, 3, 2);
         gun.GetComponent<GunMovement>().isDead = false;
-
+        gun.GetComponent<GunShoot>().ResetGun();
         for (var i = 0; i < objectContainer.transform.childCount; i++)
         {
             Destroy(objectContainer.GetChild(i).gameObject);
@@ -176,5 +180,10 @@ public class GameManager : MonoBehaviour
 
         gameOverScreen.SetActive(false);
         SpawnElements();
+    }
+
+    public void SetGameOverScreen()
+    {
+        
     }
 }

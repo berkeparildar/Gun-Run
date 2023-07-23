@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class AmmoWall : MonoBehaviour
 {
-    
     private GameObject _bulletContainerOne;
     private GameObject _bulletContainerTwo;
     private GameObject _bulletContainerThree;
@@ -58,7 +57,7 @@ public class AmmoWall : MonoBehaviour
                 if (_bulletContainerThree.transform.childCount >= 5)
                 {
                     _poleThree.GetComponent<MeshRenderer>().material = greenMat;
-                    colliders.transform.GetChild(2).GetComponent<BoxCollider>().enabled = true;
+                    transform.GetChild(2).GetComponent<BoxCollider>().enabled = true;
                     _isFull = true;
                     return;
                 }
@@ -68,7 +67,7 @@ public class AmmoWall : MonoBehaviour
             if (_bulletContainerOne.transform.childCount == 5 && _bulletContainerTwo.transform.childCount == 0)
             {
                 // bad implementation, create a method for transition that takes only once
-                colliders.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+                transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
                 _poleOne.GetComponent<MeshRenderer>().material = greenMat;
                 _bulletContainer = _bulletContainerTwo;
                 if (_bulletContainer.transform.childCount == 0)
@@ -87,7 +86,7 @@ public class AmmoWall : MonoBehaviour
             else if (_bulletContainerOne.transform.childCount == 5 && _bulletContainerTwo.transform.childCount == 5)
             {
                 _poleTwo.GetComponent<MeshRenderer>().material = greenMat;
-                colliders.transform.GetChild(1).GetComponent<BoxCollider>().enabled = true;
+                transform.GetChild(1).GetComponent<BoxCollider>().enabled = true;
                 _bulletContainer = _bulletContainerThree;
                 if (_bulletContainer.transform.childCount == 0)
                 {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -58,5 +59,11 @@ public class GunShoot : MonoBehaviour
     public void IncreaseFireRate(float points)
     {
         fireRate -= points / 100;
+    }
+
+    public void ResetGun()
+    {
+        fireRate = _initFireRate;
+        range = _initRange + (10 * GameManager.RangeLevel);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private static readonly float Speed = 10;
+    private static readonly float Speed = 15;
     private float _range;
     private Vector3 _initPosition;
     private GunShoot _gunScript;
