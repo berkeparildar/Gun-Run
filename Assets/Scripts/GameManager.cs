@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public static int IncomeLevel;
     public static int RangeLevel;
+    public static int RateLevel;
+    public static int YearLevel;
 
     public TextMeshProUGUI moneyText;
     public List<Vector3> _availableSpots = new();
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject platformTile;
     public GameObject ammoWall;
     public GameObject gameOverScreen;
+    public GameObject startScreen;
     public GameObject endZone;
 
     public Transform platformContainer;
@@ -44,6 +47,8 @@ public class GameManager : MonoBehaviour
         Level = 1;
         IncomeLevel = 0;
         RangeLevel = 0;
+        RateLevel = 0;
+        YearLevel = 0;
         AmmoCount = 3;
         WallCount = 1;
         _platformSpawnPos = 55;
@@ -135,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        startScreen.SetActive(true);
         var position = GameObject.FindWithTag("EndZone").transform.position;
         gun.transform.position = new Vector3(0, 3, 2);
         gun.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, 0);
@@ -182,8 +188,8 @@ public class GameManager : MonoBehaviour
         SpawnElements();
     }
 
-    public void SetGameOverScreen()
+    public static void InitializeGame()
     {
-        
+        StartGame = true;
     }
 }

@@ -63,7 +63,7 @@ public class GunShoot : MonoBehaviour
 
     public void ResetGun()
     {
-        fireRate = _initFireRate;
+        fireRate = _initFireRate - (0.1f * GameManager.RateLevel);
         range = _initRange + (10 * GameManager.RangeLevel);
     }
 }

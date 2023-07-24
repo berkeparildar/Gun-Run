@@ -28,12 +28,11 @@ public class GunMovement : MonoBehaviour
         if (GameManager.StartGame)
         {
             transform.Translate(_speed * Time.deltaTime * Vector3.forward);
+            startUI.SetActive(false);
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            GameManager.StartGame = true;
-            startUI.SetActive(false);
             _isPressed = true;
             _initialMousePosition = Input.mousePosition;
             _startPosition = transform.position;

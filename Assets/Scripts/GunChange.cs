@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GunChange : MonoBehaviour
 {
-    //reference to models here..
     private static float _gunExp;
 
     private int _firstYearCap = 1800;
@@ -89,6 +88,7 @@ public class GunChange : MonoBehaviour
             var money = Instantiate(floatingMoney, transform.position, Quaternion.identity);
             var barrel = other.transform.parent.GetComponent<Barrel>();
             money.GetComponent<TextMeshPro>().text = "+$" + barrel.moneyAmount;
+            GameManager.Money += barrel.moneyAmount;
             money.transform.DOMoveY(2, 1).SetRelative().OnComplete(
                 () => { Destroy(money); });
         }

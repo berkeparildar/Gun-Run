@@ -81,7 +81,11 @@ public class Wall : MonoBehaviour, IPlatformObject
     public void TakeHit()
     {
         transform
-            .DOPunchScale(Vector3.one / 25, 0.3f);
+            .DOPunchScale(Vector3.one / 25, 0.3f).OnComplete(
+                () =>
+                {
+                    DOTween.Kill(this);
+                });
         Points += SumPoint;
     }
 

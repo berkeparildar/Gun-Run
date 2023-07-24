@@ -17,7 +17,7 @@ public class Barrel : MonoBehaviour
     {
         gameOverScreen = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
         _healthText = transform.GetChild(1).GetComponent<TextMeshPro>();
-        moneyAmount = Random.Range(40, 61);
+        moneyAmount = Random.Range(40, 61) + GameManager.IncomeLevel * 10;
         _healthText.text = health.ToString();
         _barrel = transform.GetChild(0).gameObject;
         _boxCollider = GetComponent<BoxCollider>();
@@ -43,8 +43,6 @@ public class Barrel : MonoBehaviour
             Sequence s = DOTween.Sequence();
             s.Append(gunContainer.DOMoveY(-1, 1).SetRelative().SetEase(Ease.InOutQuad));
             s.Insert(0, gunContainer.DORotate(new Vector3(0, 0, 90), 1).SetEase(Ease.InQuad));
-            //gunContainer.DOMoveY(-1, 1).SetRelative();
-            //gunContainer.DORotate(new Vector3(0, 0, 90), 1)
             s.OnComplete(() =>
             {
                 gameOverScreen.SetActive(true);
@@ -57,7 +55,6 @@ public class Barrel : MonoBehaviour
             Destroy(other.gameObject);
             if (health <= 0)
             {
-                GameManager.Money += moneyAmount;
                 Destroy(_barrel);
                 _healthText.enabled = false;
                 _boxCollider.enabled = false;
