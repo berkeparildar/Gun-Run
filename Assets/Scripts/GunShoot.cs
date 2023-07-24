@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -6,22 +5,19 @@ using UnityEngine;
 public class GunShoot : MonoBehaviour
 {
     [SerializeField] private float range;
-    private readonly float _initRange = 10;
+    private const float InitRange = 10;
+    private const float InitFireRate = 1;
     private GameObject _gunContainer;
     public Transform initPositions;
     [SerializeField] private float fireRate;
-    private readonly float _initFireRate = 1;
     private Vector3 _bulletInitPoint;
     [SerializeField] private GameObject bulletPrefab;
-    private GunMovement _gunMovement;
-    private static readonly int Shoot = Animator.StringToHash("shoot");
 
     private void Start()
     {
-        _gunMovement = GetComponent<GunMovement>();
         _gunContainer = transform.GetChild(1).gameObject;
-        fireRate = _initFireRate;
-        range = _initRange;
+        fireRate = InitFireRate;
+        range = InitRange;
         StartCoroutine(ShootCoroutine());
     }
 
@@ -58,12 +54,19 @@ public class GunShoot : MonoBehaviour
 
     public void IncreaseFireRate(float points)
     {
-        fireRate -= points / 100;
+        if (fireRate <= 0.3f)
+        {
+            fireRate -= points / 200;
+        }
+        else
+        {
+            fireRate -= points / 100;
+        }
     }
 
     public void ResetGun()
     {
-        fireRate = _initFireRate - (0.1f * GameManager.RateLevel);
-        range = _initRange + (10 * GameManager.RangeLevel);
+        fireRate = InitFireRate - (0.1f * GameManager.RateLevel);
+        range = InitRange + (10 * GameManager.RangeLevel);
     }
 }

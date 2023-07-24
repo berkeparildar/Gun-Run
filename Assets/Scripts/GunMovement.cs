@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class GunMovement : MonoBehaviour
@@ -49,7 +48,9 @@ public class GunMovement : MonoBehaviour
             xDelta /= 48;
             var newPos = _startPosition + new Vector3(xDelta, 0, 0);
             newPos.x = Mathf.Clamp(newPos.x, -3, 3);
-            transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
+            var position = transform.position;
+            position = new Vector3(newPos.x, position.y, position.z);
+            transform.position = position;
         }
     }
     

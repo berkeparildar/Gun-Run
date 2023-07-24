@@ -7,6 +7,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
     public float Points { get; set; }
     public float SumPoint { get; set; }
     public GunShoot GunShoot { get; set; }
+    
     private int _currentBullet;
     private int _amountToRotate;
     private int _currentRotate = 1;
@@ -61,7 +62,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
             transform.DOMoveZ(_ammoWall.transform.position.z, 1).OnComplete(
                 () =>
                 {
-                    _ammoWall.SpawnBullets((int)Points / 2);
+                    _ammoWall.SpawnBullets((int)Points);
                     DOTween.instance.DOKill();
                 });
         });

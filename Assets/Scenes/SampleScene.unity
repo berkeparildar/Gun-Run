@@ -5766,12 +5766,6 @@ PrefabInstance:
       propertyPath: currentImage
       value: 
       objectReference: {fileID: 1043617611}
-    - target: {fileID: 5020726502668639223, guid: d74806d196ae99947869eef48b65982d,
-        type: 3}
-      propertyPath: floatingMoney
-      value: 
-      objectReference: {fileID: 2810388537718786288, guid: ee2276ca2676d90409189b530fbb7d41,
-        type: 3}
     - target: {fileID: 5824644095979397967, guid: d74806d196ae99947869eef48b65982d,
         type: 3}
       propertyPath: m_RootOrder
@@ -5826,11 +5820,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7887486022202968348, guid: d74806d196ae99947869eef48b65982d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.264
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

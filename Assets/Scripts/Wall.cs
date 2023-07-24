@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -11,7 +9,7 @@ public enum WallPerk
 {
     FireRate,
     FireRange,
-    GunEXP,
+    GunExp,
 }
 
 public class Wall : MonoBehaviour, IPlatformObject
@@ -45,7 +43,7 @@ public class Wall : MonoBehaviour, IPlatformObject
     public float SumPoint { get; set; }
     public GunShoot GunShoot { get; set; }
 
-    void Start()
+    private void Start()
     {
         var gun = GameObject.Find("Gun");
         _transparentPart = transform.GetChild(0);
@@ -99,7 +97,7 @@ public class Wall : MonoBehaviour, IPlatformObject
             case WallPerk.FireRange:
                 GunShoot.IncreaseRange(Points);
                 break;
-            case WallPerk.GunEXP:
+            case WallPerk.GunExp:
                 GunChange.IncreaseGunExp(Points);
                 break;
         }
@@ -114,7 +112,7 @@ public class Wall : MonoBehaviour, IPlatformObject
     private void SetInitPoints()
     {
         //SO MANY NESTS FIX IN THE FUTURE :(
-        if (_perk == WallPerk.GunEXP)
+        if (_perk == WallPerk.GunExp)
         {
             if (_negativeHpChance == 5)
             {
@@ -151,11 +149,9 @@ public class Wall : MonoBehaviour, IPlatformObject
         {
             if (_negativeHpChance == 5)
             {
-                //_hpOperatorSign = "-";
                 Points = (int)Random.Range(-5, -1);
                 if (_negativeSpChance == 5)
                 {
-                    //_spOperatorSign = "-";
                     SumPoint = Random.Range(-1.7f, -0.3f);
                 }
                 else
@@ -167,10 +163,9 @@ public class Wall : MonoBehaviour, IPlatformObject
             else
             {
                 _hpOperatorSign = "+";
-                Points = (int)Random.Range(5, 10); // * _perklevel maybe?
+                Points = (int)Random.Range(5, 10);
                 if (_negativeSpChance == 5)
                 {
-                    //_spOperatorSign = "-";
                     SumPoint = Random.Range(-1.7f, -0.3f);
                 }
                 else
@@ -231,7 +226,7 @@ public class Wall : MonoBehaviour, IPlatformObject
                 _perk = WallPerk.FireRange;
                 break;
             case 3:
-                _perk = WallPerk.GunEXP;
+                _perk = WallPerk.GunExp;
                 break;
         }
     }

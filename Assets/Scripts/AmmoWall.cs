@@ -10,7 +10,6 @@ public class AmmoWall : MonoBehaviour
     private GameObject _poleThree;
     public GameObject wallBullet;
     public GameObject poles;
-    public GameObject colliders;
     public Material greenMat;
     private GameObject _bulletContainer;
     private float _shift;
@@ -27,11 +26,6 @@ public class AmmoWall : MonoBehaviour
         _poleThree = poles.transform.GetChild(2).gameObject;
     }
 
-    void Update()
-    {
-        Debug.Log(_bulletContainerThree.transform.childCount);
-    }
-    
     // implemented the entirety of this like the donkey I am, need refactor
     public void SpawnBullets(int amountOfBullets)
     {

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StartPerks : MonoBehaviour
@@ -15,7 +12,6 @@ public class StartPerks : MonoBehaviour
     private TextMeshProUGUI _rateButtonText;
     public GunShoot gun;
 
-    // Start is called before the first frame update
     void Awake()
     {
         _rateCost = 100;

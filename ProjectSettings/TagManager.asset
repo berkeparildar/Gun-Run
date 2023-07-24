@@ -9,6 +9,11 @@ TagManager:
   - AmmoWall
   - Bullet
   - EndZone
+  - AmmoWallTwo
+  - AmmoWallThree
+  - AmmoWallOne
+  - Money
+  - CollisionPoints
   layers:
   - Default
   - TransparentFX

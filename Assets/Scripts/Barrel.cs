@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Barrel : MonoBehaviour
 {
@@ -35,9 +34,9 @@ public class Barrel : MonoBehaviour
             other.GetComponent<GunMovement>().isDead = true;
             GameManager.StartGame = false;
             var bullets = GameObject.FindGameObjectsWithTag("Bullet");
-            for (int i = 0; i < bullets.Length; i++)
+            foreach (var t in bullets)
             {
-                Destroy(bullets[i]);   
+                Destroy(t);
             }
             var gunContainer = other.transform.GetChild(1);
             Sequence s = DOTween.Sequence();
@@ -51,7 +50,7 @@ public class Barrel : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
-            health--;
+            health -= 2;
             Destroy(other.gameObject);
             if (health <= 0)
             {

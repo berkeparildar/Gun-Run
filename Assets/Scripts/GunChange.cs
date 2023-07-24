@@ -10,7 +10,7 @@ public class GunChange : MonoBehaviour
     private int _firstYearCap = 1800;
     private int _secondYearCap = 1810;
     private int _yearDifference;
-    public static int CurrentIndex = 0;
+    public static int CurrentIndex;
     public GameObject[] guns;
     public Sprite[] gunImages;
 
@@ -21,6 +21,9 @@ public class GunChange : MonoBehaviour
     public TextMeshProUGUI nextText;
 
     public GameObject floatingMoney;
+    private GameObject _ammoWallOne;
+    private GameObject _ammoWallTwo;
+    private GameObject _ammoWallThree;
 
     private void Start()
     {
@@ -42,7 +45,7 @@ public class GunChange : MonoBehaviour
         _gunExp += points;
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
         currentImage.sprite = gunImages[CurrentIndex];
         nextImage.sprite = gunImages[CurrentIndex + 1];
@@ -50,7 +53,7 @@ public class GunChange : MonoBehaviour
         nextText.text = _secondYearCap.ToString();
     }
 
-    public void ChangeGun()
+    private void ChangeGun()
     {
         _firstYearCap = _secondYearCap;
         _secondYearCap += _yearDifference * 2;
@@ -68,20 +71,29 @@ public class GunChange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        _ammoWallOne = GameObject.FindWithTag("AmmoWallOne");
+        _ammoWallTwo = GameObject.FindWithTag("AmmoWallTwo");
+        _ammoWallThree = GameObject.FindWithTag("AmmoWallThree");
         if (other.CompareTag("AmmoWallOne"))
         {
             _gunExp += 3;
             other.transform.DOMoveY(-5, 2).SetRelative();
+            _ammoWallTwo.GetComponent<BoxCollider>().enabled = false;
+            _ammoWallThree.GetComponent<BoxCollider>().enabled = false;
         }
         else if (other.CompareTag("AmmoWallTwo"))
         {
             _gunExp += 7;
             other.transform.DOMoveY(-5, 2).SetRelative();
+            _ammoWallOne.GetComponent<BoxCollider>().enabled = false;
+            _ammoWallThree.GetComponent<BoxCollider>().enabled = false;
         }
         else if (other.CompareTag("AmmoWallThree"))
         {
             _gunExp += 12;
             other.transform.DOMoveY(-5, 2).SetRelative();
+            _ammoWallTwo.GetComponent<BoxCollider>().enabled = false;
+            _ammoWallThree.GetComponent<BoxCollider>().enabled = false;
         }
         else if (other.CompareTag("Money"))
         {
