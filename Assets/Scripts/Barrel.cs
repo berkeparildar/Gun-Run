@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
-    
     public int moneyAmount;
     public int health;
     private TextMeshPro _healthText;
@@ -14,7 +13,7 @@ public class Barrel : MonoBehaviour
 
     private void Start()
     {
-        gameOverScreen = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        gameOverScreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
         _healthText = transform.GetChild(1).GetComponent<TextMeshPro>();
         moneyAmount = Random.Range(40, 61) + GameManager.IncomeLevel * 10;
         _healthText.text = health.ToString();

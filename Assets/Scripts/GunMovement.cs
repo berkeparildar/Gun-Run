@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GunMovement : MonoBehaviour
 {
-    private Vector3 _initialMousePosition;
+    private Vector3 _initialTouchPosition;
     private Vector3 _startPosition;
     private bool _isPressed;
     private float _speed;
@@ -30,22 +30,25 @@ public class GunMovement : MonoBehaviour
             startUI.SetActive(false);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0)
         {
-            _isPressed = true;
-            _initialMousePosition = Input.mousePosition;
-            _startPosition = transform.position;
-        }
+            Touch touch = Input.GetTouch(0);
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            _isPressed = false;
+            if (touch.phase == TouchPhase.Began)
+            {
+                _isPressed = true;
+                _initialTouchPosition = touch.position;
+                _startPosition = transform.position;
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                _isPressed = false;
+            }
         }
 
         if (_isPressed)
         {
-            var xDelta = Input.mousePosition.x - _initialMousePosition.x;
-            xDelta /= 48;
+            var xDelta = (Input.GetTouch(0).position.x - _initialTouchPosition.x) / 48f;
             var newPos = _startPosition + new Vector3(xDelta, 0, 0);
             newPos.x = Mathf.Clamp(newPos.x, -3, 3);
             var position = transform.position;
@@ -53,7 +56,7 @@ public class GunMovement : MonoBehaviour
             transform.position = position;
         }
     }
-    
+
     public void Die()
     {
         isDead = true;

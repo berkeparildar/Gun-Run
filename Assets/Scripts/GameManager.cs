@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public GameObject ammoWall;
     public GameObject gameOverScreen;
     public GameObject startScreen;
+    public GameObject adScreen;
     public GameObject endZone;
 
     public Transform platformContainer;
@@ -67,11 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnElements()
     {
-        // Get somewhere near end, since it does not make sense for ammo wall to be at the start
-        // To add an element of randomness, still random
-        //var childForAmmoWall = Random.Range(_availableSpots.Count - 3, _availableSpots.Count);
         var childForAmmoWall = _availableSpots.Count - 1;
-        // save this position to a reference since we dont want to have ammo after this
         _ammoWallPos = _availableSpots[childForAmmoWall];
         var ammoWallPos = new Vector3(-5, 4, _availableSpots[childForAmmoWall].z);
         var spawnedAmmoWall = Instantiate(ammoWall, ammoWallPos, Quaternion.identity);
@@ -79,11 +76,10 @@ public class GameManager : MonoBehaviour
         _availableSpots.RemoveAt(childForAmmoWall); // remove from list
         var wallsSpawned = 0;
 
-        // spawn bullets here
         for (var i = 0; i < AmmoCount; i++)
         {
-            var xPos = Random.Range(-2.5f, 2.5f); // random place for x
-            var yPos = 3; // turn this to const later maybe idk
+            var xPos = Random.Range(-2.5f, 2.5f);
+            var yPos = 3;
             var randomChild = Random.Range(0, _availableSpots.Count);
             var zPos = _availableSpots[randomChild].z;
             _availableSpots.Remove(_availableSpots[randomChild]);
@@ -95,11 +91,9 @@ public class GameManager : MonoBehaviour
 
         for (var i = 0; i < WallCount; i++)
         {
-            // spawn to randomly
             var spawnTwo = Random.Range(0, 2);
             if (WallCount - wallsSpawned < 2)
             {
-                // dont want to go over wall count by spawning two so first check this
                 spawnTwo = 0;
             }
 
@@ -132,7 +126,6 @@ public class GameManager : MonoBehaviour
                 wallsSpawned += 2;
                 wallOne.transform.SetParent(objectContainer);
                 wallTwo.transform.SetParent(objectContainer);
-                // this should help with the loop but it is fishy
                 i++;
             }
         }
@@ -184,8 +177,14 @@ public class GameManager : MonoBehaviour
                 .position);
         }
 
-        gameOverScreen.SetActive(false);
+        adScreen.SetActive(false);
         SpawnElements();
+    }
+
+    public void GetAdScreen()
+    {
+        gameOverScreen.SetActive(false);
+        adScreen.SetActive(true);
     }
 
     public static void InitializeGame()
