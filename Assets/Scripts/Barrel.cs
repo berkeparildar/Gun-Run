@@ -10,11 +10,13 @@ public class Barrel : MonoBehaviour
     public GameObject gameOverScreen;
     private GameObject _barrel;
     private BoxCollider _boxCollider;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         gameOverScreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
         _healthText = transform.GetChild(1).GetComponent<TextMeshPro>();
+        _audioSource = GetComponent<AudioSource>();
         moneyAmount = Random.Range(40, 61) + GameManager.IncomeLevel * 10;
         _healthText.text = health.ToString();
         _barrel = transform.GetChild(0).gameObject;
@@ -31,6 +33,7 @@ public class Barrel : MonoBehaviour
         if (other.gameObject.CompareTag("Gun"))
         {
             other.GetComponent<GunMovement>().isDead = true;
+            GunMovement.firstTouch = false;
             GameManager.StartGame = false;
             var bullets = GameObject.FindGameObjectsWithTag("Bullet");
             foreach (var t in bullets)
@@ -49,6 +52,7 @@ public class Barrel : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
+            _audioSource.Play();
             health -= 2;
             Destroy(other.gameObject);
             if (health <= 0)

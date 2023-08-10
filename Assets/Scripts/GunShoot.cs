@@ -13,6 +13,8 @@ public class GunShoot : MonoBehaviour
     private Vector3 _bulletInitPoint;
     [SerializeField] private GameObject bulletPrefab;
 
+    public float FireRate { get => fireRate;}
+
     private void Start()
     {
         _gunContainer = transform.GetChild(1).gameObject;

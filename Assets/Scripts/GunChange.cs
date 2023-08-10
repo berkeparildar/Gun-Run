@@ -24,9 +24,11 @@ public class GunChange : MonoBehaviour
     private GameObject _ammoWallOne;
     private GameObject _ammoWallTwo;
     private GameObject _ammoWallThree;
+    private AudioSource _audioSource;
 
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _yearDifference = _secondYearCap - _firstYearCap;
         _gunExp = 0;
     }
@@ -97,6 +99,7 @@ public class GunChange : MonoBehaviour
         }
         else if (other.CompareTag("Money"))
         {
+            _audioSource.Play();
             var money = Instantiate(floatingMoney, transform.position, Quaternion.identity);
             var barrel = other.transform.parent.GetComponent<Barrel>();
             money.GetComponent<TextMeshPro>().text = "+$" + barrel.moneyAmount;

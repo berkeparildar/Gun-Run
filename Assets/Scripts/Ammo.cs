@@ -15,11 +15,13 @@ public class Ammo : MonoBehaviour, IPlatformObject
     private bool _isPassed;
     private CapsuleCollider _capsuleCollider;
     private AmmoWall _ammoWall;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _player = GameObject.Find("Gun").transform;
         _capsuleCollider = GetComponent<CapsuleCollider>();
+        _audioSource = GetComponent<AudioSource>();
         
         SumPoint = 1;
         Points = Random.Range(0, 4);
@@ -38,6 +40,8 @@ public class Ammo : MonoBehaviour, IPlatformObject
 
     public void TakeHit()
     {
+        _audioSource.pitch = 1 + (_player.GetComponent<GunShoot>().FireRate - 1);
+        _audioSource.Play();
         if (_currentRotate > _amountToRotate + 1) return;
         transform.DORotate(new Vector3(0, 0, 60 * _currentRotate), 0.2f
                 , RotateMode.Fast)
@@ -62,7 +66,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
             transform.DOMoveZ(_ammoWall.transform.position.z, 1).OnComplete(
                 () =>
                 {
-                    _ammoWall.SpawnBullets((int)Points);
+                    _ammoWall.SpawnBullets((int)Points / 2);
                     DOTween.instance.DOKill();
                 });
         });

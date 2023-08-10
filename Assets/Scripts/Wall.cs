@@ -18,6 +18,7 @@ public class Wall : MonoBehaviour, IPlatformObject
     [SerializeField] private Material greenTranslucentColor;
     [SerializeField] private Material redOpaqueColor;
     [SerializeField] private Material redTranslucentColor;
+    private AudioSource _audioSource;
     private Transform _borderTop;
     private Transform _transparentPart;
     private Transform _borderLeft;
@@ -55,6 +56,7 @@ public class Wall : MonoBehaviour, IPlatformObject
         _negativeSpChance = Random.Range(0, 6);
         GunShoot = gun.GetComponent<GunShoot>();
         _gunChange = gun.GetComponent<GunChange>();
+        _audioSource = GetComponent<AudioSource>();
         SetPerk();
         SetInitPoints();
         SetColor();
@@ -78,6 +80,7 @@ public class Wall : MonoBehaviour, IPlatformObject
 
     public void TakeHit()
     {
+        _audioSource.Play();
         transform
             .DOPunchScale(Vector3.one / 25, 0.3f).OnComplete(
                 () =>
