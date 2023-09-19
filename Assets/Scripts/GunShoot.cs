@@ -7,7 +7,7 @@ public class GunShoot : MonoBehaviour
     [SerializeField] private float range;
     private const float InitRange = 10;
     private const float InitFireRate = 1;
-    private GameObject _gunContainer;
+    [SerializeField] private GameObject gunContainer;
     public Transform initPositions;
     [SerializeField] private float fireRate;
     private Vector3 _bulletInitPoint;
@@ -17,7 +17,6 @@ public class GunShoot : MonoBehaviour
 
     private void Start()
     {
-        _gunContainer = transform.GetChild(1).gameObject;
         fireRate = InitFireRate;
         range = InitRange;
         StartCoroutine(ShootCoroutine());
@@ -31,9 +30,9 @@ public class GunShoot : MonoBehaviour
             {
                 _bulletInitPoint = initPositions.GetChild(GunChange.CurrentIndex).position;
                 Instantiate(bulletPrefab, _bulletInitPoint, Quaternion.identity);
-                _gunContainer.transform.DORotate(new Vector3(-20, 0, 0), fireRate / 2).OnComplete(() =>
+                gunContainer.transform.DORotate(new Vector3(-20, 0, 0), fireRate / 4).OnComplete(() =>
                 {
-                    _gunContainer.transform.DORotate(new Vector3(0, 0, 0), fireRate / 2);
+                    gunContainer.transform.DORotate(new Vector3(0, 0, 0), fireRate * 3 / 4);
                 });
                 yield return new WaitForSeconds(fireRate);
             }

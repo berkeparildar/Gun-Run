@@ -4,28 +4,25 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
-    public int moneyAmount;
-    public int health;
-    private TextMeshPro _healthText;
-    public GameObject gameOverScreen;
-    private GameObject _barrel;
-    private BoxCollider _boxCollider;
-    private AudioSource _audioSource;
+    [SerializeField] private int moneyAmount;
+    [SerializeField] private int health;
+    [SerializeField] private TextMeshPro healthText;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject barrel;
+    [SerializeField] private BoxCollider boxCollider;
+    [SerializeField] private AudioSource audioSource;
+    public int MoneyAmount => moneyAmount;
 
     private void Start()
     {
         gameOverScreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
-        _healthText = transform.GetChild(1).GetComponent<TextMeshPro>();
-        _audioSource = GetComponent<AudioSource>();
         moneyAmount = Random.Range(40, 61) + GameManager.IncomeLevel * 10;
-        _healthText.text = health.ToString();
-        _barrel = transform.GetChild(0).gameObject;
-        _boxCollider = GetComponent<BoxCollider>();
+        healthText.text = health.ToString();
     }
 
     private void Update()
     {
-        _healthText.text = health.ToString();
+        healthText.text = health.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,15 +49,16 @@ public class Barrel : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
-            _audioSource.Play();
-            health -= 2;
+            audioSource.Play();
+            transform.GetChild(0).DOPunchScale(Vector3.up / 25, 0.3f);
+            health --;
             Destroy(other.gameObject);
-            if (health <= 0)
-            {
-                Destroy(_barrel);
-                _healthText.enabled = false;
-                _boxCollider.enabled = false;
-            }
+            if (health > 0) return;
+            DOTween.Kill(transform);
+            DOTween.instance.DOKill(transform);
+            Destroy(barrel);
+            healthText.enabled = false;
+            boxCollider.enabled = false;
         }
     }
 }

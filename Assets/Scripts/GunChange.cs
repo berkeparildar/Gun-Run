@@ -5,21 +5,16 @@ using UnityEngine.UI;
 
 public class GunChange : MonoBehaviour
 {
-    private static float _gunExp;
-
-    private int _firstYearCap = 1800;
-    private int _secondYearCap = 1810;
+    private static float _technologyLevel;
+    private int _firstYearCap = 0;
+    private int _secondYearCap = 10;
     private int _yearDifference;
     public static int CurrentIndex;
     public GameObject[] guns;
     public Sprite[] gunImages;
-
-    public Image currentImage;
     public Image nextImage;
     public Image fillBar;
-    public TextMeshProUGUI currentText;
-    public TextMeshProUGUI nextText;
-
+    public TextMeshProUGUI technologyLevelText;
     public GameObject floatingMoney;
     private GameObject _ammoWallOne;
     private GameObject _ammoWallTwo;
@@ -30,12 +25,12 @@ public class GunChange : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _yearDifference = _secondYearCap - _firstYearCap;
-        _gunExp = 0;
+        _technologyLevel = 0;
     }
 
     private void Update()
     {
-        fillBar.fillAmount = _gunExp / _yearDifference;
+        fillBar.fillAmount = _technologyLevel / _yearDifference;
         if (fillBar.fillAmount >= 1)
         {
             ChangeGun();
@@ -44,15 +39,13 @@ public class GunChange : MonoBehaviour
 
     public static void IncreaseGunExp(float points)
     {
-        _gunExp += points;
+        _technologyLevel += points;
     }
 
     private void UpdateUI()
     {
-        currentImage.sprite = gunImages[CurrentIndex];
         nextImage.sprite = gunImages[CurrentIndex + 1];
-        currentText.text = _firstYearCap.ToString();
-        nextText.text = _secondYearCap.ToString();
+        technologyLevelText.text = ((int)_technologyLevel).ToString();
     }
 
     private void ChangeGun()
@@ -66,8 +59,7 @@ public class GunChange : MonoBehaviour
         {
             guns[CurrentIndex].SetActive(true);
         }
-
-        _gunExp = 0;
+        _technologyLevel = 0;
         UpdateUI();
     }
 
@@ -78,21 +70,21 @@ public class GunChange : MonoBehaviour
         _ammoWallThree = GameObject.FindWithTag("AmmoWallThree");
         if (other.CompareTag("AmmoWallOne"))
         {
-            _gunExp += 3;
+            _technologyLevel += 3;
             other.transform.DOMoveY(-5, 2).SetRelative();
             _ammoWallTwo.GetComponent<BoxCollider>().enabled = false;
             _ammoWallThree.GetComponent<BoxCollider>().enabled = false;
         }
         else if (other.CompareTag("AmmoWallTwo"))
         {
-            _gunExp += 7;
+            _technologyLevel += 7;
             other.transform.DOMoveY(-5, 2).SetRelative();
             _ammoWallOne.GetComponent<BoxCollider>().enabled = false;
             _ammoWallThree.GetComponent<BoxCollider>().enabled = false;
         }
         else if (other.CompareTag("AmmoWallThree"))
         {
-            _gunExp += 12;
+            _technologyLevel += 12;
             other.transform.DOMoveY(-5, 2).SetRelative();
             _ammoWallTwo.GetComponent<BoxCollider>().enabled = false;
             _ammoWallThree.GetComponent<BoxCollider>().enabled = false;
@@ -100,12 +92,13 @@ public class GunChange : MonoBehaviour
         else if (other.CompareTag("Money"))
         {
             _audioSource.Play();
-            var money = Instantiate(floatingMoney, transform.position, Quaternion.identity);
+            var money = Instantiate(floatingMoney, transform.position, Quaternion.Euler(45, 0, 0));
             var barrel = other.transform.parent.GetComponent<Barrel>();
-            money.GetComponent<TextMeshPro>().text = "+$" + barrel.moneyAmount;
-            GameManager.Money += barrel.moneyAmount;
-            money.transform.DOMoveY(2, 1).SetRelative().OnComplete(
+            money.GetComponent<TextMeshPro>().text = "+$" + barrel.MoneyAmount;
+            GameManager.Money += barrel.MoneyAmount;
+            money.transform.DOMove(new Vector3(0, 2, 2), 1).SetRelative().OnComplete(
                 () => { Destroy(money); });
+            Destroy(other.gameObject);
         }
     }
 }

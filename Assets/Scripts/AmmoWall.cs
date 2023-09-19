@@ -15,7 +15,7 @@ public class AmmoWall : MonoBehaviour
     private float _shift;
     private bool _isFull;
 
-    void Start()
+    private void Start()
     {   
         _bulletContainerOne = transform.GetChild(0).gameObject;
         _bulletContainerTwo = transform.GetChild(1).gameObject;
@@ -44,7 +44,7 @@ public class AmmoWall : MonoBehaviour
             for (int i = 0; i < 5 - currentBullet; i++)
             {
                 var containerPos = _bulletContainer.transform.position;
-                var position = new Vector3(containerPos.x + _shift, containerPos.y, containerPos.z);
+                var position = new Vector3(containerPos.x + _shift, containerPos.y - 0.275f, containerPos.z);
                 var bullet = Instantiate(wallBullet, position, Quaternion.identity);
                 bullet.transform.SetParent(_bulletContainer.transform);
                 _shift += 0.5f;
@@ -71,7 +71,7 @@ public class AmmoWall : MonoBehaviour
                 for (int i = 0; i < leftOverCount; i++)
                 {
                     var containerPos = _bulletContainer.transform.position;
-                    var position = new Vector3(containerPos.x + _shift, containerPos.y, containerPos.z);
+                    var position = new Vector3(containerPos.x + _shift, containerPos.y - 0.275f, containerPos.z);
                     var bullet = Instantiate(wallBullet, position, Quaternion.identity);
                     bullet.transform.SetParent(_bulletContainer.transform);
                     _shift += 0.5f;
@@ -89,7 +89,7 @@ public class AmmoWall : MonoBehaviour
                 for (int i = 0; i < leftOverCount; i++)
                 {
                     var containerPos = _bulletContainer.transform.position;
-                    var position = new Vector3(containerPos.x + _shift, containerPos.y, containerPos.z);
+                    var position = new Vector3(containerPos.x + _shift, containerPos.y - 0.275f, containerPos.z);
                     var bullet = Instantiate(wallBullet, position, Quaternion.identity);
                     bullet.transform.SetParent(_bulletContainer.transform);
                     _shift += 0.5f;
@@ -102,7 +102,7 @@ public class AmmoWall : MonoBehaviour
             for (int i = 0; i < amountOfBullets; i++)
             {
                 var containerPos = _bulletContainer.transform.position;
-                var position = new Vector3(containerPos.x + _shift, containerPos.y, containerPos.z);
+                var position = new Vector3(containerPos.x + _shift, containerPos.y- 0.275f, containerPos.z);
                 var bullet = Instantiate(wallBullet, position, Quaternion.identity);
                 bullet.transform.SetParent(_bulletContainer.transform);
                 _shift += 0.5f;

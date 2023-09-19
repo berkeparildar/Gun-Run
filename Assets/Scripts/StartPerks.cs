@@ -12,7 +12,7 @@ public class StartPerks : MonoBehaviour
     private TextMeshProUGUI _rateButtonText;
     public GunShoot gun;
 
-    void Awake()
+    private void Awake()
     {
         _rateCost = 100;
         _yearCost = 100;

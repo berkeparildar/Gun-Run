@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,56 +5,44 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    public static int Level;
+    
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private List<Vector3> availableSpots = new();
+    [SerializeField] private GameObject ammoPrefab;
+    [SerializeField] private GameObject wallPrefab;
+    [SerializeField] private GameObject spawnPoints;
+    [SerializeField] private GameObject platformTile;
+    [SerializeField] private GameObject ammoWall;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject startScreen;
+    [SerializeField] private GameObject adScreen;
+    [SerializeField] private GameObject endZone;
+    [SerializeField] private Transform platformContainer;
+    [SerializeField] private Transform objectContainer;
+    [SerializeField] private GameObject emptyGameObject;
+    [SerializeField] private GameObject gun;
     public static int Money;
     public static bool StartGame;
-
     public static int IncomeLevel;
     public static int RangeLevel;
     public static int RateLevel;
     public static int YearLevel;
-
-    public TextMeshProUGUI moneyText;
-    public List<Vector3> _availableSpots = new();
-
-    public static int ElementCount;
-    public static int AmmoCount;
-    public static int WallCount;
-    public static int ElementIncrease;
-
-    public GameObject ammoPrefab;
-    public GameObject wallPrefab;
-    public GameObject spawnPoints;
-    public GameObject platformTile;
-    public GameObject ammoWall;
-    public GameObject gameOverScreen;
-    public GameObject startScreen;
-    public GameObject adScreen;
-    public GameObject endZone;
-
-    public Transform platformContainer;
-    public Transform objectContainer;
-    public GameObject emptyGameObject;
-
-    public GameObject gun;
-
+    private static int _ammoCount;
+    private static int _wallCount;
     private static int _platformSpawnPos;
-    private static int _endZoneSpawnPos;
-    private Vector3 _ammoWallPos;
 
-    void Start()
+    private void Start()
     {
-        Level = 1;
         IncomeLevel = 0;
         RangeLevel = 0;
         RateLevel = 0;
         YearLevel = 0;
-        AmmoCount = 3;
-        WallCount = 1;
+        _ammoCount = 3;
+        _wallCount = 1;
         _platformSpawnPos = 55;
         for (var i = 0; i < spawnPoints.transform.childCount; i++)
         {
-            _availableSpots.Add(spawnPoints.transform.GetChild(i).transform
+            availableSpots.Add(spawnPoints.transform.GetChild(i).transform
                 .position);
         }
         SpawnElements();
@@ -68,31 +55,30 @@ public class GameManager : MonoBehaviour
 
     private void SpawnElements()
     {
-        var childForAmmoWall = _availableSpots.Count - 1;
-        _ammoWallPos = _availableSpots[childForAmmoWall];
-        var ammoWallPos = new Vector3(-5, 4, _availableSpots[childForAmmoWall].z);
+        var childForAmmoWall = availableSpots.Count - 1;
+        var ammoWallPos = new Vector3(-5, 4, availableSpots[childForAmmoWall].z);
         var spawnedAmmoWall = Instantiate(ammoWall, ammoWallPos, Quaternion.identity);
         spawnedAmmoWall.transform.SetParent(objectContainer);
-        _availableSpots.RemoveAt(childForAmmoWall); // remove from list
+        availableSpots.RemoveAt(childForAmmoWall); // remove from list
         var wallsSpawned = 0;
 
-        for (var i = 0; i < AmmoCount; i++)
+        for (var i = 0; i < _ammoCount; i++)
         {
             var xPos = Random.Range(-2.5f, 2.5f);
-            var yPos = 3;
-            var randomChild = Random.Range(0, _availableSpots.Count);
-            var zPos = _availableSpots[randomChild].z;
-            _availableSpots.Remove(_availableSpots[randomChild]);
+            var yPos = 3.2f;
+            var randomChild = Random.Range(0, availableSpots.Count);
+            var zPos = availableSpots[randomChild].z;
+            availableSpots.Remove(availableSpots[randomChild]);
             var ammoPosition = new Vector3(xPos, yPos, zPos);
             var ammo = Instantiate(ammoPrefab, ammoPosition
                 , Quaternion.identity);
             ammo.transform.SetParent(objectContainer);
         }
 
-        for (var i = 0; i < WallCount; i++)
+        for (var i = 0; i < _wallCount; i++)
         {
             var spawnTwo = Random.Range(0, 2);
-            if (WallCount - wallsSpawned < 2)
+            if (_wallCount - wallsSpawned < 2)
             {
                 spawnTwo = 0;
             }
@@ -101,10 +87,10 @@ public class GameManager : MonoBehaviour
             {
                 float[] xPoses = { -2.25f, 0, 2.25f };
                 var xPos = xPoses[Random.Range(0, 3)];
-                var yPos = -0.8f;
-                var randomChild = Random.Range(0, _availableSpots.Count);
-                var zPos = _availableSpots[randomChild].z;
-                _availableSpots.RemoveAt(randomChild);
+                var yPos = -0.15f;
+                var randomChild = Random.Range(0, availableSpots.Count);
+                var zPos = availableSpots[randomChild].z;
+                availableSpots.RemoveAt(randomChild);
                 var wallPosition = new Vector3(xPos, yPos, zPos);
                 var wall = Instantiate(wallPrefab, wallPosition
                     , Quaternion.identity);
@@ -114,11 +100,11 @@ public class GameManager : MonoBehaviour
             else if (spawnTwo == 1)
             {
                 var yPos = -0.8f;
-                var randomChild = Random.Range(0, _availableSpots.Count);
-                var zPos = _availableSpots[randomChild].z;
+                var randomChild = Random.Range(0, availableSpots.Count);
+                var zPos = availableSpots[randomChild].z;
                 var wallPositionOne = new Vector3(-2.25f, yPos, zPos);
                 var wallPositionTwo = new Vector3(2.25f, yPos, zPos);
-                _availableSpots.RemoveAt(randomChild);
+                availableSpots.RemoveAt(randomChild);
                 var wallOne = Instantiate(wallPrefab, wallPositionOne
                     , Quaternion.identity);
                 var wallTwo = Instantiate(wallPrefab, wallPositionTwo
@@ -144,13 +130,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(objectContainer.GetChild(i).gameObject);
         }
-        _availableSpots.Clear();
+        availableSpots.Clear();
         
-        WallCount += 1;
+        _wallCount += 1;
         var ammoChance = Random.Range(0, 2);
         if (ammoChance == 0)
         {
-            AmmoCount++;
+            _ammoCount++;
         }
         
         _platformSpawnPos += 10;
@@ -173,7 +159,7 @@ public class GameManager : MonoBehaviour
 
         for (var i = 0; i < spawnPoints.transform.childCount; i++)
         {
-            _availableSpots.Add(spawnPoints.transform.GetChild(i).transform
+            availableSpots.Add(spawnPoints.transform.GetChild(i).transform
                 .position);
         }
 

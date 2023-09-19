@@ -5,9 +5,8 @@ public class Ammo : MonoBehaviour, IPlatformObject
 {
     private Transform _bulletHoles;
     public float Points { get; set; }
-    public float SumPoint { get; set; }
+    public float Coefficient { get; set; }
     public GunShoot GunShoot { get; set; }
-    
     private int _currentBullet;
     private int _amountToRotate;
     private int _currentRotate = 1;
@@ -23,7 +22,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _audioSource = GetComponent<AudioSource>();
         
-        SumPoint = 1;
+        Coefficient = 1;
         Points = Random.Range(0, 4);
         _amountToRotate = 6 - (int) Points;
         InitializeBullets();
@@ -40,7 +39,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
 
     public void TakeHit()
     {
-        _audioSource.pitch = 1 + (_player.GetComponent<GunShoot>().FireRate - 1);
+        _audioSource.pitch = 1 / _player.GetComponent<GunShoot>().FireRate;
         _audioSource.Play();
         if (_currentRotate > _amountToRotate + 1) return;
         transform.DORotate(new Vector3(0, 0, 60 * _currentRotate), 0.2f
@@ -61,9 +60,10 @@ public class Ammo : MonoBehaviour, IPlatformObject
     {
         _ammoWall = GameObject.FindWithTag("AmmoWall").GetComponent<AmmoWall>();
         _capsuleCollider.enabled = false;
-        transform.DOMoveX(-6, 1).OnComplete(() =>
+        transform.DOMoveX(-8, 1).OnComplete(() =>
         {
-            transform.DOMoveZ(_ammoWall.transform.position.z, 1).OnComplete(
+            var position = _ammoWall.transform.position;
+            transform.DOMoveZ(position.z, (((int)position.z - (int)transform.position.z) / 10)).OnComplete(
                 () =>
                 {
                     _ammoWall.SpawnBullets((int)Points / 2);

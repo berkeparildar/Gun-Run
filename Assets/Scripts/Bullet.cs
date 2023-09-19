@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private static readonly float Speed = 15;
-    private float _range;
-    private Vector3 _initPosition;
-    private GunShoot _gunScript;
-    void Start()
+    
+    [SerializeField] private float range;
+    [SerializeField]private Vector3 initPosition;
+    [SerializeField] private GunShoot gunScript;
+    private const float Speed = 15;
+
+    private void Start()
     {
-        _gunScript = GameObject.Find("Gun").GetComponent<GunShoot>();
-        _initPosition = transform.position;
-        _range = _gunScript.GetRange();
-        Debug.Log(_range);
+        gunScript = GameObject.Find("Gun").GetComponent<GunShoot>();
+        initPosition = transform.position;
+        range = gunScript.GetRange();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.Translate(Speed * Time.deltaTime * Vector3.forward);
-        if (Vector3.Distance(transform.position, _initPosition) > _range)
+        if (Vector3.Distance(transform.position, initPosition) > range)
         {
             Destroy(gameObject);
         }
@@ -26,10 +26,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
-        {
-            other.GetComponent<IPlatformObject>().TakeHit();
-            Destroy(this.gameObject);
-        }
+        if (!other.gameObject.CompareTag("Obstacle")) return;
+        other.GetComponent<IPlatformObject>().TakeHit();
+        Destroy(this.gameObject);
     }
 }
