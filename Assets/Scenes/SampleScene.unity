@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0007417899, g: 0.0006785227, b: 0.00064659404, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.00073928974, g: 0.0006795514, b: 0.0006445444, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -203,18 +203,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1725154500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &116870999 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 792765886949296507, guid: 8931f1cb07cfba84ebf71438585e66bb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7054568451633988763}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &165685581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2934886184944486029, guid: c45736967c4e79849843a87c0d6297ff,
@@ -1329,6 +1317,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419239994}
   m_CullTransparentMesh: 1
+--- !u!1 &1439367545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439367546}
+  - component: {fileID: 1439367547}
+  - component: {fileID: 1439367548}
+  m_Layer: 5
+  m_Name: NextGunBgFill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1439367546
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439367545}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 48504118}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 40, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1439367547
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439367545}
+  m_CullTransparentMesh: 1
+--- !u!114 &1439367548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439367545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.45382977, g: 0, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2c22a531fc65c40a38ce3594a2878e0c, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 1
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1001 &1458599463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2002,7 +2065,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1e05874301fc6744fb1b27a058638083, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0915790bb358bcc47889bc6a834b03dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2184,7 +2247,7 @@ PrefabInstance:
         type: 3}
       propertyPath: fillBar
       value: 
-      objectReference: {fileID: 116870999}
+      objectReference: {fileID: 1439367548}
     - target: {fileID: 5020726502668639223, guid: d74806d196ae99947869eef48b65982d,
         type: 3}
       propertyPath: nextText
@@ -2225,6 +2288,36 @@ PrefabInstance:
       propertyPath: technologyLevelText
       value: 
       objectReference: {fileID: 801914748}
+    - target: {fileID: 5020726502668639223, guid: d74806d196ae99947869eef48b65982d,
+        type: 3}
+      propertyPath: gunImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: c1356d560cbde6a40addb4814ef06cc2,
+        type: 3}
+    - target: {fileID: 5020726502668639223, guid: d74806d196ae99947869eef48b65982d,
+        type: 3}
+      propertyPath: gunImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0915790bb358bcc47889bc6a834b03dc,
+        type: 3}
+    - target: {fileID: 5020726502668639223, guid: d74806d196ae99947869eef48b65982d,
+        type: 3}
+      propertyPath: gunImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: e9c3d85a3aaaf64489a24c81ae1bfeb9,
+        type: 3}
+    - target: {fileID: 5020726502668639223, guid: d74806d196ae99947869eef48b65982d,
+        type: 3}
+      propertyPath: gunImages.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 636b462919aeeea43a794d4663793348,
+        type: 3}
+    - target: {fileID: 5020726502668639223, guid: d74806d196ae99947869eef48b65982d,
+        type: 3}
+      propertyPath: gunImages.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 021d2d8a432020d4c9a7a9ec4262778e,
+        type: 3}
     - target: {fileID: 5308221367454369583, guid: d74806d196ae99947869eef48b65982d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2377,7 +2470,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6d0622e924a404987958ebbb7c1eb3fc,
+      objectReference: {fileID: 21300000, guid: 318ab1faa4abc4047b977031110b93d3,
         type: 3}
     - target: {fileID: 792765886949296507, guid: 8931f1cb07cfba84ebf71438585e66bb,
         type: 3}
@@ -3134,6 +3227,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 1419239995}
+    - targetCorrespondingSourceObject: {fileID: 3549201726644755151, guid: 8931f1cb07cfba84ebf71438585e66bb,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1439367546}
     - targetCorrespondingSourceObject: {fileID: 3549201726644755151, guid: 8931f1cb07cfba84ebf71438585e66bb,
         type: 3}
       insertIndex: -1
