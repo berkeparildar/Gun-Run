@@ -30,17 +30,17 @@ public class Barrel : MonoBehaviour
         if (other.gameObject.CompareTag("Gun"))
         {
             other.GetComponent<GunMovement>().isDead = true;
-            GunMovement.firstTouch = false;
+            GunMovement.FirstTouch = false;
             GameManager.StartGame = false;
             var bullets = GameObject.FindGameObjectsWithTag("Bullet");
             foreach (var t in bullets)
             {
                 Destroy(t);
             }
-            var gunContainer = other.transform.GetChild(1);
-            Sequence s = DOTween.Sequence();
-            s.Append(gunContainer.DOMoveY(-1, 1).SetRelative().SetEase(Ease.InOutQuad));
-            s.Insert(0, gunContainer.DORotate(new Vector3(0, 0, 90), 1).SetEase(Ease.InQuad));
+            var gunContainer = other.transform.GetChild(0);
+            var s = DOTween.Sequence();
+            s.Append(gunContainer.DOMoveY(-1, 1).SetRelative());
+            s.Insert(0, gunContainer.DORotate(new Vector3(0, 0, 90), 1));
             s.OnComplete(() =>
             {
                 gameOverScreen.SetActive(true);

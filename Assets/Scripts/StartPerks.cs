@@ -31,8 +31,6 @@ public class StartPerks : MonoBehaviour
         yearButton.GetComponent<Button>().interactable = true;
         _rateButtonText.color = Color.white;
         _yearButtonText.color = Color.white;
-        _rateButtonText.text = ButtonText("FireRate", GameManager.RateLevel + 1, _rateCost);
-        _yearButtonText.text = ButtonText("Year", GameManager.YearLevel + 1, _yearCost);
         
     }
 
@@ -48,6 +46,7 @@ public class StartPerks : MonoBehaviour
         _rateCost += 100;
         gun.ResetGun();
         PriceCheck();
+        _rateButtonText.text = ButtonText("FireRate", GameManager.RateLevel + 1, _rateCost);
     }
     
     public void YearButton()
@@ -57,6 +56,7 @@ public class StartPerks : MonoBehaviour
         _yearCost += 100;
         GunChange.IncreaseGunExp(10 * GameManager.YearLevel);
         PriceCheck();
+        _yearButtonText.text = ButtonText("Technology", GameManager.YearLevel + 1, _yearCost);
     }
 
     private void PriceCheck()

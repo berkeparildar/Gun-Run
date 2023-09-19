@@ -35,6 +35,7 @@ public class GunChange : MonoBehaviour
         {
             ChangeGun();
         }
+        UpdateUI();
     }
 
     public static void IncreaseGunExp(float points)

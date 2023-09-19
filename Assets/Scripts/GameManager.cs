@@ -122,8 +122,8 @@ public class GameManager : MonoBehaviour
         startScreen.SetActive(true);
         var position = GameObject.FindWithTag("EndZone").transform.position;
         gun.transform.position = new Vector3(0, 3, 2);
-        gun.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, 0);
-        gun.transform.GetChild(1).position = new Vector3(0, 3, 2);
+        gun.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, 0);
+        gun.transform.GetChild(0).position = new Vector3(0, 3, 2);
         gun.GetComponent<GunMovement>().isDead = false;
         gun.GetComponent<GunShoot>().ResetGun();
         for (var i = 0; i < objectContainer.transform.childCount; i++)
@@ -162,7 +162,6 @@ public class GameManager : MonoBehaviour
             availableSpots.Add(spawnPoints.transform.GetChild(i).transform
                 .position);
         }
-
         adScreen.SetActive(false);
         SpawnElements();
     }

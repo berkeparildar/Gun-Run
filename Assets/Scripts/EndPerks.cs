@@ -30,8 +30,6 @@ public class EndPerks : MonoBehaviour
         rangeButton.GetComponent<Button>().interactable = true;
         _incomeButtonText.color = Color.white;
         _rangeButtonText.color = Color.white;
-        _incomeButtonText.text = ButtonText("Income", GameManager.IncomeLevel + 1, _incomeCost);
-        _rangeButtonText.text = ButtonText("FireRange", GameManager.RangeLevel + 1, _rangeCost);
     }
 
     private string ButtonText(string perk, int level, int price)
@@ -46,6 +44,7 @@ public class EndPerks : MonoBehaviour
         GameManager.Money -= _incomeCost;
         _incomeCost += 100;
         PriceCheck();
+        _incomeButtonText.text = ButtonText("Income", GameManager.IncomeLevel + 1, _incomeCost);
     }
     
     public void RangeButton()
@@ -54,6 +53,7 @@ public class EndPerks : MonoBehaviour
         GameManager.Money -= _rangeCost;
         _rangeCost += 100;
         PriceCheck();
+        _rangeButtonText.text = ButtonText("FireRange", GameManager.RangeLevel + 1, _rangeCost);
     }
 
     private void PriceCheck()
