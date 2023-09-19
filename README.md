@@ -1,3 +1,7 @@
+# Gameplay Video
+[![Gameplay Preview](https://img.youtube.com/vi/EbHNhdFMDQ8/0.jpg)](https://www.youtube.com/watch?v=EbHNhdFMDQ8)
+
+
 # Gun Run
 
 Gun Run is a thrilling runner-style game where players control a moving gun on a dynamic platform. The objective is to shoot at different obstacles and collect ammo to advance through the levels. The game features a unique ammo system and rewards players with perks for their shooting skills. In addition, players can collect money to purchase permanent perks and upgrade their guns.
