@@ -8,7 +8,7 @@ Gun Run is a thrilling runner-style game where players control a moving gun on a
 
 ## Video
 
-<img src="media/play.gif" alt="Gameplay Screenshot">
+<img src="media/play.gif" alt="Gameplay Screenshot" width="50%">
 
 ## Gameplay
 
