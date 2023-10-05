@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,7 +6,6 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private List<Vector3> availableSpots = new();
     [SerializeField] private GameObject ammoPrefab;
@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour
     private static int _ammoCount;
     private static int _wallCount;
     private static int _platformSpawnPos;
+
+    private void Awake()
+    {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
 
     private void Start()
     {

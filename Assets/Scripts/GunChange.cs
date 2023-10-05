@@ -71,6 +71,7 @@ public class GunChange : MonoBehaviour
         _ammoWallThree = GameObject.FindWithTag("AmmoWallThree");
         if (other.CompareTag("AmmoWallOne"))
         {
+            _audioSource.Play();
             _technologyLevel += 3;
             other.transform.DOMoveY(-5, 2).SetRelative();
             _ammoWallTwo.GetComponent<BoxCollider>().enabled = false;
@@ -78,6 +79,7 @@ public class GunChange : MonoBehaviour
         }
         else if (other.CompareTag("AmmoWallTwo"))
         {
+            _audioSource.Play();
             _technologyLevel += 7;
             other.transform.DOMoveY(-5, 2).SetRelative();
             _ammoWallOne.GetComponent<BoxCollider>().enabled = false;
@@ -85,6 +87,7 @@ public class GunChange : MonoBehaviour
         }
         else if (other.CompareTag("AmmoWallThree"))
         {
+            _audioSource.Play();
             _technologyLevel += 12;
             other.transform.DOMoveY(-5, 2).SetRelative();
             _ammoWallTwo.GetComponent<BoxCollider>().enabled = false;

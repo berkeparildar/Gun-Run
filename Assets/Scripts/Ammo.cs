@@ -6,7 +6,7 @@ public class Ammo : MonoBehaviour, IPlatformObject
     private Transform _bulletHoles;
     public float Points { get; set; }
     public float Coefficient { get; set; }
-    public GunShoot GunShoot { get; set; }
+    public GunShoot gunShoot { get; set; }
     private int _currentBullet;
     private int _amountToRotate;
     private int _currentRotate = 1;

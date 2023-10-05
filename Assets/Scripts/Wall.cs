@@ -31,14 +31,14 @@ public class Wall : MonoBehaviour, IPlatformObject
     private static float _perkCoolDown;
     public float Points { get; set; }
     public float Coefficient { get; set; }
-    public GunShoot GunShoot { get; set; }
+    public GunShoot gunShoot { get; set; }
 
     private void Start()
     {
         var gun = GameObject.Find("Gun");
         negativeHpChance = Random.Range(0, 6);
         negativeCoefficientChance = Random.Range(0, 6);
-        GunShoot = gun.GetComponent<GunShoot>();
+        gunShoot = gun.GetComponent<GunShoot>();
         SetPerk();
         SetInitPoints();
         SetColor();
@@ -69,10 +69,10 @@ public class Wall : MonoBehaviour, IPlatformObject
         switch (perk)
         {
             case WallPerk.FireRate:
-                GunShoot.IncreaseFireRate(Points);
+                gunShoot.IncreaseFireRate(Points);
                 break;
             case WallPerk.FireRange:
-                GunShoot.IncreaseRange(Points);
+                gunShoot.IncreaseRange(Points);
                 break;
             case WallPerk.Technology:
                 GunChange.IncreaseGunExp(Points);
@@ -82,6 +82,7 @@ public class Wall : MonoBehaviour, IPlatformObject
 
     public void Die()
     {
+        gunShoot.transform.GetComponent<AudioSource>().Play();
         DOTween.Kill(transform);
         DOTween.instance.DOKill();
         Destroy(gameObject);

@@ -38,6 +38,9 @@ public class Barrel : MonoBehaviour
                 Destroy(t);
             }
             var gunContainer = other.transform.GetChild(0);
+            gunContainer.transform.DOKill();
+            DOTween.instance.DOKill(gunContainer);
+            other.GetComponent<GunMovement>().PlayDeathSound();
             var s = DOTween.Sequence();
             s.Append(gunContainer.DOMoveY(-1, 1).SetRelative());
             s.Insert(0, gunContainer.DORotate(new Vector3(0, 0, 90), 1));
